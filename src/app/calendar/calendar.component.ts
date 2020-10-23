@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Day } from '../models/day';
+import { Reminder } from '../models/reminder';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-calendar',
@@ -7,9 +8,9 @@ import { Day } from '../models/day';
   styleUrls: ['./calendar.component.scss']
 })
 export class CalendarComponent implements OnInit {
-  today = new Date();
   month = [];
-  day: Day;
+  selectedDay = new Date();
+  reminders: Reminder[] = [];
 
   constructor() { }
 
@@ -18,51 +19,37 @@ export class CalendarComponent implements OnInit {
   }
 
   buildCalendarDays() {
-    this.month.push(this.getFirstWeek());
-    const weeksInMonth = this.weekCount();
+    const lastDayToAddOnCalendar = this.getDayToAddOnCalendar();
+    let dayToAddOnCalendar = this.getFirstDayToAddOnCalendar();
 
-    for (let i = 1; i < weeksInMonth; i++) {
-
-    }
-  }
-
-  getFirstWeek(): Array<any> {
-    const lastDayOfLastMonth = this.getLastDayOfLastMonth(this.today);
-    const firstWeek: Day[] = [];
-
-    let daysAdded = 0;
-    const subtractWeekday = 7 - (lastDayOfLastMonth.getDay() + 1);
-    let currentDay = lastDayOfLastMonth.getUTCDate() - subtractWeekday;
     do {
-      firstWeek.push({
-        dayNumber: currentDay,
-        currentDay: this.today.getUTCDate() === (currentDay)
-      });
-      daysAdded++;
+      this.month.push(dayToAddOnCalendar);
+      dayToAddOnCalendar = moment(dayToAddOnCalendar).add(1, 'day').toDate();
+    } while (dayToAddOnCalendar.toISOString() !== lastDayToAddOnCalendar.toISOString());
 
-      if (currentDay < lastDayOfLastMonth.getUTCDate()) {
-        currentDay++;
-        continue;
-      }
-      currentDay = 1;
-    } while (daysAdded < 7);
-    return firstWeek;
+    console.log(this.month);
   }
 
-  weekCount() {
-    const firstOfMonth = this.getFirstDayOfMonth(this.today);
-    const lastOfMonth = this.getLastDayOfLastMonth(this.today);
-    const used = firstOfMonth.getDay() + lastOfMonth.getDate();
+  getFirstDayToAddOnCalendar() {
+    const firstDayToAdd = this.getFirstDayOfMonth(this.selectedDay);
+    let dayToAddOnCalendar = firstDayToAdd;
+    if (firstDayToAdd.getDay() > 0) {
+      dayToAddOnCalendar = moment(firstDayToAdd).subtract(firstDayToAdd.getDay(), 'days').toDate();
+    }
+    return dayToAddOnCalendar;
+  }
 
-    return Math.ceil(used / 7);
+  getDayToAddOnCalendar() {
+    const firstDayOfNextMonth = new Date(this.selectedDay.getFullYear(), this.selectedDay.getMonth() + 1, 1);
+    let lastDayToAdd = this.getFirstDayOfMonth(firstDayOfNextMonth);
+    if (lastDayToAdd.getDay() > 0) {
+      lastDayToAdd = moment(lastDayToAdd).add(7 - lastDayToAdd.getDay(), 'days').toDate();
+    }
+    return lastDayToAdd;
   }
 
   getFirstDayOfMonth(date: Date) {
     return new Date(date.getFullYear(), date.getMonth(), 1);
-  }
-
-  getLastDayOfLastMonth(date: Date) {
-    return new Date(date.getFullYear(), date.getMonth(), 0);
   }
 
 }

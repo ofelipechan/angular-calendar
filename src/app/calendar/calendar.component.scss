@@ -1,5 +1,10 @@
 .container-calendar {
-    padding: 5vw;
+  padding: 5vw;
+}
+
+.title-month {
+  padding: 0 10px 10px;
+  text-align: center;
 }
 
 table {
@@ -10,17 +15,18 @@ table {
 }
 
 thead tr {
-    background-color: #5382ec;
-    color: white;
+  background-color: #5382ec;
+  color: white;
 }
 
-th {
-    padding: 5px;
+.container-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
 }
 
-td {
-  height: 12vw;
-  border: 2px solid #d0d0d0;
-  padding: 5px;
-  vertical-align: top;
+.grid-row {
+  height: 100px;
+  background-color: white;
+  border: 1px solid #a5a5a5;
+  padding: 1vw;
 }
