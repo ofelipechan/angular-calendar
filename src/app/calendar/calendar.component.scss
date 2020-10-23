@@ -1,5 +1,11 @@
+$color-header: #5382ec;
+$color-light-grey: #a5a5a5;
+$color-current-day: #00b105;
+
 .container-calendar {
   padding: 5vw;
+  max-width: 1060px;
+  margin: auto;
 }
 
 .title-month {
@@ -15,13 +21,13 @@ table {
 }
 
 thead tr {
-  background-color: #5382ec;
+  background-color: $color-header;
   color: white;
 }
 
 .today-calendar-mark {
   color: white;
-  background-color: #00b105;
+  background-color: $color-current-day;
   width: 20px;
   height: 17px;
   text-align: center;
@@ -34,8 +40,13 @@ thead tr {
 }
 
 .grid-row {
-  height: 100px;
   background-color: white;
-  border: 1px solid #a5a5a5;
+  border: 1px solid $color-light-grey;
   padding: 1vw;
+  font-weight: bold;
+  height: 12vh;
+}
+
+.other-month-day {
+  color: $color-light-grey;
 }

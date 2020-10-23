@@ -20,6 +20,7 @@ export class CalendarComponent implements OnInit {
   }
 
   buildCalendarDays() {
+    this.month = [];
     const lastDayToAdd = this.getDayToAddOnCalendar();
     let currentDayToAdd = this.getFirstDayToAddOnCalendar();
 
@@ -55,4 +56,13 @@ export class CalendarComponent implements OnInit {
     return moment(dateA).format('YYYY-MM-DD') === moment(dateB).format('YYYY-MM-DD');
   }
 
+  showOtherMonth(type: 'previous' | 'next') {
+    const firstDay = this.getFirstDayOfMonth(this.selectedDay);
+    if (type === 'previous') {
+      this.selectedDay = moment(firstDay).subtract(1, 'month').toDate();
+    } else {
+      this.selectedDay = moment(firstDay).add(1, 'month').toDate();
+    }
+    this.buildCalendarDays();
+  }
 }

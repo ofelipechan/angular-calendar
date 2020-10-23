@@ -1,7 +1,9 @@
 <div class="container-calendar">
 
   <div class="title-month">
-    <h2>{{ selectedDay | date: 'MMMM' }}</h2>
+    <button (click)="showOtherMonth('previous')">Previous</button>
+    <h2>{{ selectedDay | date: 'MMMM y' }}</h2>
+    <button (click)="showOtherMonth('next')">Next</button>
   </div>
 
   <table>
@@ -19,7 +21,9 @@
   </table>
   <div class="container-grid">
     <div class="grid-row" *ngFor="let day of month">
-      <p [class.today-calendar-mark]="compareDates(day, today)">{{ day | date: 'd' }}</p>
+      <p [class.today-calendar-mark]="compareDates(day, today)"
+         [class.other-month-day]="day.getMonth() !== selectedDay.getMonth()"
+        >{{ day | date: 'd' }}</p>
     </div>
   </div>
 </div>
