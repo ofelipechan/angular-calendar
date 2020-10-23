@@ -1,5 +1,6 @@
-$color-header: #5382ec;
-$color-light-grey: #a5a5a5;
+$color-blue: #5382ec;
+$color-light-grey: #efefef;
+$color-grey: #a5a5a5;
 $color-current-day: #00b105;
 
 .container-calendar {
@@ -21,17 +22,32 @@ table {
 }
 
 thead tr {
-  background-color: $color-header;
+  background-color: $color-blue;
   color: white;
+}
+
+.day {
+  padding: 5px;
+}
+
+.weekend {
+  background-color: $color-light-grey;
+  .day {
+    color: $color-blue;
+  }
 }
 
 .today-calendar-mark {
   color: white;
   background-color: $color-current-day;
-  width: 20px;
-  height: 17px;
+  width: 26px;
   text-align: center;
   border-radius: 5px;
+  margin-left: 5px;
+
+  &.weekend {
+    color: white;
+  }
 }
 
 .container-grid {
@@ -41,12 +57,34 @@ thead tr {
 
 .grid-row {
   background-color: white;
-  border: 1px solid $color-light-grey;
-  padding: 1vw;
+  border: 1px solid $color-grey;
   font-weight: bold;
   height: 12vh;
+  overflow: hidden;
+
+  &.weekend {
+    background-color: $color-light-grey;
+  }
 }
 
 .other-month-day {
-  color: $color-light-grey;
+  color: $color-grey;
+}
+
+.reminder-flag {
+  padding: 1px 5px;
+
+  p {
+    padding: 2px 0;
+    background-color: #7b7bd0;
+  }
+}
+
+.reminder-all-day-flag {
+  background-color: #fb7878;
+  color: white;
+}
+
+.reminder-block {
+  margin-top: 25px;
 }

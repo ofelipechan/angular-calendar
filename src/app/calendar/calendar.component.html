@@ -20,10 +20,23 @@
     </thead>
   </table>
   <div class="container-grid">
-    <div class="grid-row" *ngFor="let day of month">
-      <p [class.today-calendar-mark]="compareDates(day, today)"
-         [class.other-month-day]="day.getMonth() !== selectedDay.getMonth()"
-        >{{ day | date: 'd' }}</p>
+    <div class="grid-row" *ngFor="let day of month" [class.weekend]="isWeekend(day.date)">
+      <p class="day"
+        [class.today-calendar-mark]="day.currentDay"
+        [class.other-month-day]="isDayFromOtherMonth(day.date)">
+        {{ day.date | date: 'd' }}
+      </p>
+
+      <div class="reminder-flag" *ngFor="let reminder of day.reminders">
+        <p>{{ reminder.title }}</p>
+      </div>
+
+      <div class="reminder-block" *ngIf="day.currentDay">
+        <app-new-reminder></app-new-reminder>
+      </div>
     </div>
   </div>
+
+  <button>Add reminder</button>
+
 </div>
