@@ -10,6 +10,7 @@ import * as moment from 'moment';
 export class CalendarComponent implements OnInit {
   month = [];
   selectedDay = new Date();
+  today = new Date();
   reminders: Reminder[] = [];
 
   constructor() { }
@@ -19,15 +20,13 @@ export class CalendarComponent implements OnInit {
   }
 
   buildCalendarDays() {
-    const lastDayToAddOnCalendar = this.getDayToAddOnCalendar();
-    let dayToAddOnCalendar = this.getFirstDayToAddOnCalendar();
+    const lastDayToAdd = this.getDayToAddOnCalendar();
+    let currentDayToAdd = this.getFirstDayToAddOnCalendar();
 
     do {
-      this.month.push(dayToAddOnCalendar);
-      dayToAddOnCalendar = moment(dayToAddOnCalendar).add(1, 'day').toDate();
-    } while (dayToAddOnCalendar.toISOString() !== lastDayToAddOnCalendar.toISOString());
-
-    console.log(this.month);
+      this.month.push(currentDayToAdd);
+      currentDayToAdd = moment(currentDayToAdd).add(1, 'day').toDate();
+    } while (currentDayToAdd.toISOString() !== lastDayToAdd.toISOString());
   }
 
   getFirstDayToAddOnCalendar() {
@@ -50,6 +49,10 @@ export class CalendarComponent implements OnInit {
 
   getFirstDayOfMonth(date: Date) {
     return new Date(date.getFullYear(), date.getMonth(), 1);
+  }
+
+  compareDates(dateA: Date, dateB: Date): boolean {
+    return moment(dateA).format('YYYY-MM-DD') === moment(dateB).format('YYYY-MM-DD');
   }
 
 }

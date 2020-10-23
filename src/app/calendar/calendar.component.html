@@ -19,7 +19,7 @@
   </table>
   <div class="container-grid">
     <div class="grid-row" *ngFor="let day of month">
-      {{ day | date: 'd' }}
+      <p [class.today-calendar-mark]="compareDates(day, today)">{{ day | date: 'd' }}</p>
     </div>
   </div>
 </div>
