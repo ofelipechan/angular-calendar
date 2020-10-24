@@ -82,24 +82,29 @@ export class CalendarComponent implements OnInit {
 
   onReminderModalSubmit(newReminder: Reminder) {
     this.reminderModalVisible = false;
-    this.addNewReminder(newReminder);
+    this.addOrEditReminder(newReminder);
   }
 
-  addNewReminder(reminder: Reminder) {
-    this.reminders = this.addReminderToList(reminder, this.reminders);
+  addOrEditReminder(reminder: Reminder) {
+    this.reminders = this.updatedRemindersList(reminder, this.reminders);
     localStorage.setItem('reminders', JSON.stringify(this.reminders));
     const dayIndex = this.month.findIndex((day: Day) => this.compareDates(day.date, reminder.date));
-    this.month[dayIndex].reminders = this.addReminderToList(reminder, this.month[dayIndex].reminders);
+    this.month[dayIndex].reminders = this.updatedRemindersList(reminder, this.month[dayIndex].reminders);
   }
 
-  addReminderToList(reminder: Reminder, reminders: Reminder[]): Reminder[] {
-    let indexToAdd = 0;
+  updatedRemindersList(reminder: Reminder, reminders: Reminder[]): Reminder[] {
+    let indexToUpdate = reminders.findIndex((rem) => rem.id === reminder.id);
+    if (indexToUpdate >= 0) {
+      reminders[indexToUpdate] = reminder;
+      return reminders;
+    }
+
     reminders.forEach((rem, index) => {
       if (moment(reminder.date).isSameOrAfter(rem.date)) {
-        indexToAdd = index + 1;
+        indexToUpdate = index + 1;
       }
     });
-    reminders.splice(indexToAdd, 0, reminder);
+    reminders.splice(indexToUpdate, 0, reminder);
     return reminders;
   }
 

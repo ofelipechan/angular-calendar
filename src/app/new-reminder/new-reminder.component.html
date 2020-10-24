@@ -42,9 +42,12 @@
           <option value="red">Red</option>
         </select>
       </div>
-      <p class="red-text">* Required fields</p>
-      <br>
-      <input type="submit" value="Save">
+
+      <div class="field" *ngIf="editMode">
+        <p class="red-text">* Required fields</p>
+        <br>
+        <input type="submit" value="Save">
+      </div>
     </form>
   </div>
 </div>

@@ -37,6 +37,10 @@ thead tr {
 .weekend {
   background-color: $color-light-grey;
 
+  .day.today-calendar-mark {
+    color: white;
+  }
+
   .day {
     color: $color-blue;
   }
