@@ -1,7 +1,8 @@
 <div class="reminder-container" (click)="exit()">
   <div class="reminder-box" (click)="$event.stopPropagation();">
     <div class="reminder-header">
-      <button (click)="exit()">X</button>
+      <button class="btn-edit" (click)="enableFormEdit()" *ngIf="!editMode">Edit</button>
+      <button class="btn-close" (click)="exit()">X</button>
     </div>
     <form [formGroup]="reminderForm" (ngSubmit)="onSubmit()">
       <div class="field">

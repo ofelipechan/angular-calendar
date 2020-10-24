@@ -25,6 +25,25 @@ $color-danger: #af0000;
   transform: translate(-50%, -50%);
 }
 
+.reminder-header {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px #a5a5a5;
+  min-height: 40px;
+}
+
+.btn-edit {
+  padding: 0 5px;
+  background-color: white;
+}
+
+.btn-close {
+  float: right;
+  padding: 0 5px;
+  background-color: white;
+  border-radius: 50%;
+}
+
 .field {
   margin-bottom: 15px;
 }

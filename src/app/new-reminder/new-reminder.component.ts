@@ -15,6 +15,8 @@ export class NewReminderComponent implements OnInit {
   @Output() submitReminder: EventEmitter<Reminder> = new EventEmitter();
   @Output() changeVisibility: EventEmitter<boolean> = new EventEmitter();
 
+  editMode = true;
+
   reminderForm: FormGroup;
   submit = false;
 
@@ -37,6 +39,15 @@ export class NewReminderComponent implements OnInit {
       description: new FormControl(this.selectedReminder.description),
       color: new FormControl(this.selectedReminder.color)
     });
+
+    if (this.selectedReminder.creationDate) {
+      this.editMode = false;
+      this.reminderForm.disable();
+    }
+  }
+
+  enableFormEdit() {
+    this.reminderForm.enable();
   }
 
   onSubmit() {
@@ -48,7 +59,7 @@ export class NewReminderComponent implements OnInit {
 
     const formDate = this.reminderForm.get('date').value;
     const formTime = this.reminderForm.get('time').value;
-    const valuesToSubmit: Reminder =  this.reminderForm.value;
+    const valuesToSubmit: Reminder = this.reminderForm.value;
     valuesToSubmit.date = new Date(`${formDate} ${formTime}`);
     this.submitReminder.emit({ ...valuesToSubmit, creationDate: new Date() });
   }
