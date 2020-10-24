@@ -2,7 +2,6 @@ import { Day } from './../models/day';
 import { Component, OnInit } from '@angular/core';
 import { Reminder } from '../models/reminder';
 import * as moment from 'moment';
-import { debug } from 'console';
 
 @Component({
   selector: 'app-calendar',
@@ -78,8 +77,8 @@ export class CalendarComponent implements OnInit {
     this.buildCalendarDays();
   }
 
-  createNewReminder(day: Day) {
-    this.selectedDay = day.date;
+  createNewReminder(date: Date = new Date()) {
+    this.selectedDay = date;
     this.reminderModalVisible = true;
   }
 

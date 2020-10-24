@@ -28,7 +28,7 @@
   </table>
 
   <div class="container-grid">
-    <div class="grid-row" *ngFor="let day of month" [class.weekend]="isWeekend(day.date)" (click)="createNewReminder(day)">
+    <div class="grid-row" *ngFor="let day of month" [class.weekend]="isWeekend(day.date)" (click)="createNewReminder(day.date)">
       <p class="day" [class.today-calendar-mark]="day.currentDay"
         [class.other-month-day]="isDayFromOtherMonth(day.date)">
         {{ day.date | date: 'd' }}
@@ -41,6 +41,6 @@
     </div>
   </div>
 
-  <button>Add reminder</button>
+  <button (click)="createNewReminder()">Add reminder</button>
 
 </div>

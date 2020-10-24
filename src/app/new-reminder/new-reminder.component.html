@@ -5,18 +5,21 @@
     </div>
     <form [formGroup]="reminderForm" (ngSubmit)="onSubmit()">
       <div class="field">
-        <p>Title</p>
+        <p>Title*</p>
         <input type="text" formControlName="title" placeholder="Add a title to the reminder">
+        <p class="red-text" *ngIf="fieldHasError('title')">Insert a title</p>
       </div>
 
       <div class="field">
-        <p>Date</p>
+        <p>Date*</p>
         <input id="date" formControlName="date" type="date">
+        <p class="red-text" *ngIf="fieldHasError('title')">Insert a date</p>
       </div>
 
       <div class="field">
-        <p>Time</p>
+        <p>Time*</p>
         <input type="time" id="reminder-time" formControlName="time">
+        <p class="red-text" *ngIf="fieldHasError('title')">Insert a time</p>
       </div>
 
       <div class="field">
@@ -28,6 +31,7 @@
         <p>Description</p>
         <input type="textarea" placeholder="Add location" formControlName="description">
       </div>
+      <p class="red-text">* Required fields</p>
       <br>
       <input type="submit" value="Save">
     </form>
