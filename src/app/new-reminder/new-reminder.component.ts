@@ -34,7 +34,8 @@ export class NewReminderComponent implements OnInit {
       date: new FormControl(moment(this.selectedReminder.date).format('YYYY-MM-DD'), Validators.required),
       time: new FormControl(moment(new Date()).format('HH:mm'), Validators.required),
       city: new FormControl(this.selectedReminder.city),
-      description: new FormControl(this.selectedReminder.description)
+      description: new FormControl(this.selectedReminder.description),
+      color: new FormControl(this.selectedReminder.color)
     });
   }
 
@@ -45,13 +46,10 @@ export class NewReminderComponent implements OnInit {
     }
     debugger;
 
-    const title = this.reminderForm.get('title').value;
     const formDate = this.reminderForm.get('date').value;
     const formTime = this.reminderForm.get('time').value;
-    const city = this.reminderForm.get('city').value;
-    const description = this.reminderForm.get('description').value;
-    const date = new Date(`${formDate} ${formTime}`);
-    const valuesToSubmit = new Reminder(date, title, description, city);
+    const valuesToSubmit: Reminder =  this.reminderForm.value;
+    valuesToSubmit.date = new Date(`${formDate} ${formTime}`);
     this.submitReminder.emit({ ...valuesToSubmit, creationDate: new Date() });
   }
 

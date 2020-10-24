@@ -36,7 +36,7 @@
 
       <div class="reminder-flag" *ngFor="let reminder of day.reminders"
         (click)="$event.stopPropagation(); openModalReminderDetails(reminder)">
-        <p>{{ reminder.title }}</p>
+        <p class="{{ reminder.color }}">{{ reminder.title }}</p>
       </div>
     </div>
   </div>

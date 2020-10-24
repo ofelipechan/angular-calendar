@@ -26,10 +26,20 @@
         <p>City</p>
         <input type="text" placeholder="Add location" maxlength="30" formControlName="city">
       </div>
-      
+
       <div class="field">
         <p>Description</p>
         <input type="textarea" placeholder="Add location" maxlength="30" formControlName="description">
+      </div>
+
+      <div class="field">
+        <p>Color</p>
+        <select formControlName="color">
+          <option value="default">Blue</option>
+          <option value="green">Green</option>
+          <option value="yellow">Yellow</option>
+          <option value="red">Red</option>
+        </select>
       </div>
       <p class="red-text">* Required fields</p>
       <br>
