@@ -1,3 +1,4 @@
+import { Reminder } from './../models/reminder';
 import { EventEmitter } from '@angular/core';
 import { Component, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -10,21 +11,18 @@ import * as moment from 'moment';
 })
 export class NewReminderComponent implements OnInit, OnChanges {
   @Input() selectedDay: Date = new Date();
-  @Output() events: EventEmitter<any> = new EventEmitter();
+  @Output() submitReminder: EventEmitter<Reminder> = new EventEmitter();
+  @Output() changeVisibility: EventEmitter<boolean> = new EventEmitter();
 
   reminderForm: FormGroup;
-  allDay = true;
-  changeAllDay = () => this.allDay = !this.allDay;
 
   constructor() { }
 
   ngOnInit() {
-    console.log('created reminder component')
     this.buildForm();
   }
 
   ngOnChanges(changes) {
-    console.log(changes);
     if (changes.selectedDay) {
       this.selectedDay = changes.selectedDay.currentValue;
     }
@@ -41,10 +39,10 @@ export class NewReminderComponent implements OnInit, OnChanges {
 
   onSubmit() {
     debugger;
-    console.log(this.reminderForm.value);
+    this.submitReminder.emit(this.reminderForm.value);
   }
 
   exit() {
-    this.events.emit('invisible');
+    this.changeVisibility.emit(false);
   }
 }

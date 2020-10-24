@@ -1,7 +1,11 @@
 <div class="container-calendar">
 
-  <app-new-reminder *ngIf="remiderCreatorVisible" [selectedDay]="selectedDay" (events)="onEventSubmit($event)"></app-new-reminder>
-
+  <app-new-reminder 
+    *ngIf="reminderModalVisible"
+    [selectedDay]="selectedDay"
+    (changeVisibility)="onReminderModalSubmit($event)"
+    (submitReminder)="onReminderModalSubmit($event)"
+    ></app-new-reminder>
 
   <div class="title-month">
     <button (click)="showOtherMonth('previous')">Previous</button>
@@ -12,13 +16,13 @@
   <table>
     <thead>
       <tr>
-        <th class="fc-day-header fc-widget-header fc-sun">Sunday</th>
-        <th class="fc-day-header fc-widget-header fc-mon">Monday</th>
-        <th class="fc-day-header fc-widget-header fc-tue">Tuesday</th>
-        <th class="fc-day-header fc-widget-header fc-wed">Wednesday</th>
-        <th class="fc-day-header fc-widget-header fc-thu">Thursday</th>
-        <th class="fc-day-header fc-widget-header fc-fri">Friday</th>
-        <th class="fc-day-header fc-widget-header fc-sat">Saturday</th>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
       </tr>
     </thead>
   </table>

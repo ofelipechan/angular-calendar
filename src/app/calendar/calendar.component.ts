@@ -13,7 +13,7 @@ export class CalendarComponent implements OnInit {
   selectedDay = new Date();
   today = new Date();
   reminders: Reminder[] = [];
-  remiderCreatorVisible = false;
+  reminderModalVisible = false;
 
   constructor() {
     localStorage.setItem('reminders', JSON.stringify([
@@ -41,7 +41,6 @@ export class CalendarComponent implements OnInit {
       this.month.push(new Day(currentDayToAdd, currentDayReminders));
       currentDayToAdd = moment(currentDayToAdd).add(1, 'day').toDate();
     } while (currentDayToAdd.toISOString() !== lastDayToAdd.toISOString());
-    console.log(this.month);
   }
 
   getFirstDayToAddOnCalendar() {
@@ -82,12 +81,15 @@ export class CalendarComponent implements OnInit {
 
   createNewReminder(day: Day) {
     this.selectedDay = day.date;
-    this.remiderCreatorVisible = true;
-    console.log('create new reminder');
+    this.reminderModalVisible = true;
   }
 
-  onEventSubmit(event) {
-    this.remiderCreatorVisible = false;
+  onReminderModalSubmit(event) {
+    this.reminderModalVisible = false;
+  }
+
+  onChangeReminderVisibility(newValue) {
+    this.reminderModalVisible = newValue;
   }
 
   isWeekend(value) {
