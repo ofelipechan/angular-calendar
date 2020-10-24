@@ -1,28 +1,30 @@
-<div class="reminder-container">
-  <form [formGroup]="reminderForm" (ngSubmit)="onSubmit()">
-    <div class="field">
-      <input type="text" placeholder="Add a title to the reminder">
-    </div>
+<div class="reminder-container" (click)="exit()">
+  <div class="reminder-box" (click)="$event.stopPropagation();">
+    <form [formGroup]="reminderForm" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <input type="text" formControlName="title" placeholder="Add a title to the reminder">
+      </div>
 
-    <div class="field">
-      <p>Date</p>
-      <input id="date" formControlName="date" type="date">
-      <!-- <input id="date" [ngModel]="dateSelected | date:'yyyy-MM-dd'" type="date"> -->
-    </div>
+      <div class="field">
+        <p>Date</p>
+        <input id="date" formControlName="date" type="date">
+        <!-- <input id="date" [ngModel]="selectedDay | date:'yyyy-MM-dd'" type="date"> -->
+      </div>
 
-    <button *ngIf="allDay" (click)="changeAllDay()">Add time</button>
-    <div class="field" *ngIf="!allDay">
-      <p>Time</p>
-      <input type="time" id="appt" name="appt" min="09:00" max="18:00" required>
+      <button *ngIf="allDay" (click)="changeAllDay()">Add time</button>
+      <div class="field" *ngIf="!allDay">
+        <p>Time</p>
+        <input type="time" id="reminder-time" formControlName="time">
 
-      <button (click)="changeAllDay()">All day</button>
-    </div>
+        <button (click)="changeAllDay()">All day</button>
+      </div>
 
-    <div class="field">
-      <p>Location</p>
-      <input type="text" placeholder="Add location">
-    </div>
-    <br>
-    <input type="submit" value="Save">
-  </form>
+      <div class="field">
+        <p>Location</p>
+        <input type="text" placeholder="Add location">
+      </div>
+      <br>
+      <input type="submit" value="Save">
+    </form>
+  </div>
 </div>

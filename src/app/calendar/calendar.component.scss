@@ -73,6 +73,7 @@ thead tr {
 
 .reminder-flag {
   padding: 1px 5px;
+  cursor: pointer;
 
   p {
     padding: 2px 0;
@@ -83,6 +84,7 @@ thead tr {
 .reminder-all-day-flag {
   background-color: #fb7878;
   color: white;
+  cursor: pointer;
 }
 
 .reminder-block {

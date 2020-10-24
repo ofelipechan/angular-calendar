@@ -1,16 +1,16 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
-import { EventEmitter } from 'protractor';
 
 @Component({
   selector: 'app-new-reminder',
   templateUrl: './new-reminder.component.html',
   styleUrls: ['./new-reminder.component.scss']
 })
-export class NewReminderComponent implements OnInit {
-  @Input() dateSelected: Date = new Date();
-  // @Output() visible: EventEmitter;
+export class NewReminderComponent implements OnInit, OnChanges {
+  @Input() selectedDay: Date = new Date();
+  @Output() events: EventEmitter<any> = new EventEmitter();
 
   reminderForm: FormGroup;
   allDay = true;
@@ -19,21 +19,32 @@ export class NewReminderComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log('created reminder component')
     this.buildForm();
-    this.reminderForm.get('date').setValue(moment(this.dateSelected).format('YYYY-MM-DD'));
+  }
+
+  ngOnChanges(changes) {
+    console.log(changes);
+    if (changes.selectedDay) {
+      this.selectedDay = changes.selectedDay.currentValue;
+    }
   }
 
   buildForm() {
     this.reminderForm = new FormGroup({
-      date: new FormControl('')
+      title: new FormControl(''),
+      date: new FormControl(moment(this.selectedDay).format('YYYY-MM-DD')),
+      time: new FormControl(''),
+      location: new FormControl('')
     });
   }
 
   onSubmit() {
-
+    debugger;
+    console.log(this.reminderForm.value);
   }
 
-  // exit() {
-  //   this.visible.emit('false');
-  // }
+  exit() {
+    this.events.emit('invisible');
+  }
 }

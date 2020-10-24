@@ -1,5 +1,8 @@
 <div class="container-calendar">
 
+  <app-new-reminder *ngIf="remiderCreatorVisible" [selectedDay]="selectedDay" (events)="onEventSubmit($event)"></app-new-reminder>
+
+
   <div class="title-month">
     <button (click)="showOtherMonth('previous')">Previous</button>
     <h2>{{ selectedDay | date: 'MMMM y' }}</h2>
@@ -19,20 +22,17 @@
       </tr>
     </thead>
   </table>
+
   <div class="container-grid">
-    <div class="grid-row" *ngFor="let day of month" [class.weekend]="isWeekend(day.date)">
-      <p class="day"
-        [class.today-calendar-mark]="day.currentDay"
+    <div class="grid-row" *ngFor="let day of month" [class.weekend]="isWeekend(day.date)" (click)="createNewReminder(day)">
+      <p class="day" [class.today-calendar-mark]="day.currentDay"
         [class.other-month-day]="isDayFromOtherMonth(day.date)">
         {{ day.date | date: 'd' }}
       </p>
 
-      <div class="reminder-flag" *ngFor="let reminder of day.reminders">
+      <div class="reminder-flag" *ngFor="let reminder of day.reminders"
+        (click)="$event.stopPropagation(); openReminder()">
         <p>{{ reminder.title }}</p>
-      </div>
-
-      <div class="reminder-block" *ngIf="day.currentDay">
-        <app-new-reminder></app-new-reminder>
       </div>
     </div>
   </div>
