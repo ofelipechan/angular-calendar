@@ -1,3 +1,4 @@
+import { Day } from './../models/day';
 import { Reminder } from './../models/reminder';
 import { EventEmitter, HostListener } from '@angular/core';
 import { Component, Input, OnChanges, OnInit, Output } from '@angular/core';
@@ -9,8 +10,8 @@ import * as moment from 'moment';
   templateUrl: './new-reminder.component.html',
   styleUrls: ['./new-reminder.component.scss']
 })
-export class NewReminderComponent implements OnInit, OnChanges {
-  @Input() selectedDay: Date = new Date();
+export class NewReminderComponent implements OnInit {
+  @Input() selectedReminder: Reminder = new Reminder();
   @Output() submitReminder: EventEmitter<Reminder> = new EventEmitter();
   @Output() changeVisibility: EventEmitter<boolean> = new EventEmitter();
 
@@ -23,23 +24,17 @@ export class NewReminderComponent implements OnInit, OnChanges {
     this.buildForm();
   }
 
-  ngOnChanges(changes) {
-    if (changes.selectedDay) {
-      this.selectedDay = changes.selectedDay.currentValue;
-    }
-  }
-
   @HostListener('document:keydown.escape', ['$event']) onEscKeyPressed(event: KeyboardEvent) {
     this.exit();
   }
 
   buildForm() {
     this.reminderForm = new FormGroup({
-      title: new FormControl('', Validators.required),
-      date: new FormControl(moment(this.selectedDay).format('YYYY-MM-DD'), Validators.required),
-      time: new FormControl('', Validators.required),
-      city: new FormControl(''),
-      description: new FormControl('')
+      title: new FormControl(this.selectedReminder.title, [Validators.required, Validators.maxLength(30)]),
+      date: new FormControl(moment(this.selectedReminder.date).format('YYYY-MM-DD'), Validators.required),
+      time: new FormControl(moment(new Date()).format('HH:mm'), Validators.required),
+      city: new FormControl(this.selectedReminder.city),
+      description: new FormControl(this.selectedReminder.description)
     });
   }
 
@@ -57,7 +52,7 @@ export class NewReminderComponent implements OnInit, OnChanges {
     const description = this.reminderForm.get('description').value;
     const date = new Date(`${formDate} ${formTime}`);
     const valuesToSubmit = new Reminder(date, title, description, city);
-    this.submitReminder.emit(valuesToSubmit);
+    this.submitReminder.emit({ ...valuesToSubmit, creationDate: new Date() });
   }
 
   fieldHasError(fieldName: string) {

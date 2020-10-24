@@ -10,19 +10,13 @@ import * as moment from 'moment';
 })
 export class CalendarComponent implements OnInit {
   month: Day[];
-  selectedDay = new Date(2020, 9, 31);
+  calendarView = new Date();
+  selectedReminder: Reminder;
   today = new Date(2020, 9, 31);
   reminders: Reminder[] = [];
   reminderModalVisible = false;
 
   constructor() {
-    if (!localStorage.getItem('reminders')) {
-      localStorage.setItem('reminders', JSON.stringify([
-        new Reminder(new Date(2020, 8, 27).toISOString(), 'Test 789'),
-        new Reminder(new Date(2020, 9, 12).toISOString(), 'Test 456'),
-        new Reminder(new Date(2020, 9, 15).toISOString(), 'Test 123'),
-      ]));
-    }
   }
 
   ngOnInit() {
@@ -46,7 +40,7 @@ export class CalendarComponent implements OnInit {
   }
 
   getFirstDayToAddOnCalendar() {
-    const firstDayToAdd = moment(this.selectedDay).startOf('month').toDate();
+    const firstDayToAdd = moment(this.calendarView).startOf('month').toDate();
     let dayToAddOnCalendar = firstDayToAdd;
     if (firstDayToAdd.getDay() > 0) {
       dayToAddOnCalendar = moment(firstDayToAdd).subtract(firstDayToAdd.getDay(), 'days').toDate();
@@ -55,7 +49,7 @@ export class CalendarComponent implements OnInit {
   }
 
   getDayToAddOnCalendar() {
-    const nextMonth = moment(this.selectedDay).add(1, 'month');
+    const nextMonth = moment(this.calendarView).add(1, 'month');
     let lastDayToAdd = moment(nextMonth).startOf('month').toDate();
     if (lastDayToAdd.getDay() > 0) {
       lastDayToAdd = moment(lastDayToAdd).add(7 - lastDayToAdd.getDay(), 'days').toDate();
@@ -68,17 +62,21 @@ export class CalendarComponent implements OnInit {
   }
 
   showOtherMonth(type: 'previous' | 'next') {
-    const firstDay = moment(this.selectedDay).startOf('month').toDate();
+    const firstDay = moment(this.calendarView).startOf('month').toDate();
+    this.calendarView = moment(firstDay).add(1, 'month').toDate();
     if (type === 'previous') {
-      this.selectedDay = moment(firstDay).subtract(1, 'month').toDate();
-    } else {
-      this.selectedDay = moment(firstDay).add(1, 'month').toDate();
+      this.calendarView = moment(firstDay).subtract(1, 'month').toDate();
     }
     this.buildCalendarDays();
   }
 
-  createNewReminder(date: Date = new Date()) {
-    this.selectedDay = date;
+  openModalNewReminder(day: Day = new Day()) {
+    this.selectedReminder = new Reminder(day.date);
+    this.reminderModalVisible = true;
+  }
+
+  openModalReminderDetails(reminder: Reminder) {
+    this.selectedReminder = reminder;
     this.reminderModalVisible = true;
   }
 
@@ -114,6 +112,6 @@ export class CalendarComponent implements OnInit {
   }
 
   isDayFromOtherMonth(value) {
-    return new Date(value).getMonth() !== this.selectedDay.getMonth();
+    return new Date(value).getMonth() !== this.calendarView.getMonth();
   }
 }

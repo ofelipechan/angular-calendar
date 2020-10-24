@@ -2,14 +2,14 @@
 
   <app-new-reminder 
     *ngIf="reminderModalVisible"
-    [selectedDay]="selectedDay"
+    [selectedReminder]="selectedReminder"
     (changeVisibility)="onChangeReminderVisibility($event)"
     (submitReminder)="onReminderModalSubmit($event)"
     ></app-new-reminder>
 
   <div class="title-month">
     <button (click)="showOtherMonth('previous')">Previous</button>
-    <h2>{{ selectedDay | date: 'MMMM y' }}</h2>
+    <h2>{{ calendarView | date: 'MMMM y' }}</h2>
     <button (click)="showOtherMonth('next')">Next</button>
   </div>
 
@@ -28,14 +28,14 @@
   </table>
 
   <div class="container-grid">
-    <div class="grid-row" *ngFor="let day of month" [class.weekend]="isWeekend(day.date)" (click)="createNewReminder(day.date)">
+    <div class="grid-row" *ngFor="let day of month" [class.weekend]="isWeekend(day.date)" (click)="openModalNewReminder(day)">
       <p class="day" [class.today-calendar-mark]="day.currentDay"
         [class.other-month-day]="isDayFromOtherMonth(day.date)">
         {{ day.date | date: 'd' }}
       </p>
 
       <div class="reminder-flag" *ngFor="let reminder of day.reminders"
-        (click)="$event.stopPropagation(); openReminder()">
+        (click)="$event.stopPropagation(); openModalReminderDetails(reminder)">
         <p>{{ reminder.title }}</p>
       </div>
     </div>

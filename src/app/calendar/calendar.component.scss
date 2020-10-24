@@ -1,4 +1,8 @@
 $color-blue: #5382ec;
+$color-red: #ec6767;
+$color-green: #67eca8;
+$color-yellow: #eaec67;
+
 $color-light-grey: #efefef;
 $color-grey: #a5a5a5;
 $color-current-day: #00b105;
@@ -75,12 +79,22 @@ thead tr {
 .reminder-flag {
   padding: 1px 5px;
   cursor: pointer;
+}
 
-  p {
-    padding: 2px 0;
-    background-color: #7b7bd0;
-    overflow: hidden;
-    max-height: 20px;
+.reminder-flag p {
+  padding: 2px 0;
+  background-color: $color-blue;
+  overflow: hidden;
+  max-height: 20px;
+
+  &.green {
+    background-color: $color-green;
+  }
+  &.red {
+    background-color: $color-red;
+  }
+  &.yellow {
+    background-color: $color-yellow;
   }
 }
 
