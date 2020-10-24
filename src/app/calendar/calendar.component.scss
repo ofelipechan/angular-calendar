@@ -32,6 +32,7 @@ thead tr {
 
 .weekend {
   background-color: $color-light-grey;
+
   .day {
     color: $color-blue;
   }
@@ -59,7 +60,7 @@ thead tr {
   background-color: white;
   border: 1px solid $color-grey;
   font-weight: bold;
-  height: 12vh;
+  min-height: 12vh;
   overflow: hidden;
 
   &.weekend {
@@ -78,6 +79,8 @@ thead tr {
   p {
     padding: 2px 0;
     background-color: #7b7bd0;
+    overflow: hidden;
+    max-height: 20px;
   }
 }
 

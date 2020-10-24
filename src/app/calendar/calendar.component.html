@@ -3,7 +3,7 @@
   <app-new-reminder 
     *ngIf="reminderModalVisible"
     [selectedDay]="selectedDay"
-    (changeVisibility)="onReminderModalSubmit($event)"
+    (changeVisibility)="onChangeReminderVisibility($event)"
     (submitReminder)="onReminderModalSubmit($event)"
     ></app-new-reminder>
 

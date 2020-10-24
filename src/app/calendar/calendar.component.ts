@@ -2,6 +2,7 @@ import { Day } from './../models/day';
 import { Component, OnInit } from '@angular/core';
 import { Reminder } from '../models/reminder';
 import * as moment from 'moment';
+import { debug } from 'console';
 
 @Component({
   selector: 'app-calendar',
@@ -10,17 +11,19 @@ import * as moment from 'moment';
 })
 export class CalendarComponent implements OnInit {
   month: Day[];
-  selectedDay = new Date();
-  today = new Date();
+  selectedDay = new Date(2020, 9, 31);
+  today = new Date(2020, 9, 31);
   reminders: Reminder[] = [];
   reminderModalVisible = false;
 
   constructor() {
-    localStorage.setItem('reminders', JSON.stringify([
-      new Reminder(new Date(2020, 9, 15), 'Test 123'),
-      new Reminder(new Date(2020, 9, 12), 'Test 456'),
-      new Reminder(new Date(2020, 8, 27), 'Test 789'),
-    ]));
+    if (!localStorage.getItem('reminders')) {
+      localStorage.setItem('reminders', JSON.stringify([
+        new Reminder(new Date(2020, 8, 27).toISOString(), 'Test 789'),
+        new Reminder(new Date(2020, 9, 12).toISOString(), 'Test 456'),
+        new Reminder(new Date(2020, 9, 15).toISOString(), 'Test 123'),
+      ]));
+    }
   }
 
   ngOnInit() {
@@ -44,7 +47,7 @@ export class CalendarComponent implements OnInit {
   }
 
   getFirstDayToAddOnCalendar() {
-    const firstDayToAdd = this.getFirstDayOfMonth(this.selectedDay);
+    const firstDayToAdd = moment(this.selectedDay).startOf('month').toDate();
     let dayToAddOnCalendar = firstDayToAdd;
     if (firstDayToAdd.getDay() > 0) {
       dayToAddOnCalendar = moment(firstDayToAdd).subtract(firstDayToAdd.getDay(), 'days').toDate();
@@ -53,24 +56,20 @@ export class CalendarComponent implements OnInit {
   }
 
   getDayToAddOnCalendar() {
-    const firstDayOfNextMonth = new Date(this.selectedDay.getFullYear(), this.selectedDay.getMonth() + 1, 1);
-    let lastDayToAdd = this.getFirstDayOfMonth(firstDayOfNextMonth);
+    const nextMonth = moment(this.selectedDay).add(1, 'month');
+    let lastDayToAdd = moment(nextMonth).startOf('month').toDate();
     if (lastDayToAdd.getDay() > 0) {
       lastDayToAdd = moment(lastDayToAdd).add(7 - lastDayToAdd.getDay(), 'days').toDate();
     }
     return lastDayToAdd;
   }
 
-  getFirstDayOfMonth(date: Date) {
-    return new Date(date.getFullYear(), date.getMonth(), 1);
-  }
-
   compareDates(dateA: Date, dateB: Date): boolean {
-    return moment(dateA).format('YYYY-MM-DD') === moment(dateB).format('YYYY-MM-DD');
+    return moment(dateA).format('L') === moment(dateB).format('L');
   }
 
   showOtherMonth(type: 'previous' | 'next') {
-    const firstDay = this.getFirstDayOfMonth(this.selectedDay);
+    const firstDay = moment(this.selectedDay).startOf('month').toDate();
     if (type === 'previous') {
       this.selectedDay = moment(firstDay).subtract(1, 'month').toDate();
     } else {
@@ -84,8 +83,27 @@ export class CalendarComponent implements OnInit {
     this.reminderModalVisible = true;
   }
 
-  onReminderModalSubmit(event) {
+  onReminderModalSubmit(newReminder: Reminder) {
     this.reminderModalVisible = false;
+    this.addNewReminder(newReminder);
+  }
+
+  addNewReminder(reminder: Reminder) {
+    this.reminders = this.addReminderToList(reminder, this.reminders);
+    localStorage.setItem('reminders', JSON.stringify(this.reminders));
+    const dayIndex = this.month.findIndex((day: Day) => this.compareDates(day.date, reminder.date));
+    this.month[dayIndex].reminders = this.addReminderToList(reminder, this.month[dayIndex].reminders);
+  }
+
+  addReminderToList(reminder: Reminder, reminders: Reminder[]): Reminder[] {
+    let indexToAdd = 0;
+    reminders.forEach((rem, index) => {
+      if (moment(reminder.date).isSameOrAfter(rem.date)) {
+        indexToAdd = index + 1;
+      }
+    });
+    reminders.splice(indexToAdd, 0, reminder);
+    return reminders;
   }
 
   onChangeReminderVisibility(newValue) {

@@ -5,8 +5,8 @@ export class Reminder {
     city?: string;
     forecast?: string;
 
-    constructor(date: Date, title: string, description?: string, city?: string, forecast?: string) {
-        this.date = date;
+    constructor(date: string | Date, title: string, description?: string, city?: string, forecast?: string) {
+        this.date = typeof (date) === 'string' ? new Date(date) : date;
         this.title = title;
         this.description = description;
         this.city = city;
