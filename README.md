@@ -1,8 +1,6 @@
 # Calendar
 
 A simple project of a calendar which you can create reminders.
-<br>
-[Demo](https://angular-calendar.vercel.app/)
 
 <p align="center">
     <b>Preview</b>
@@ -11,6 +9,8 @@ A simple project of a calendar which you can create reminders.
 <p align="center">
     <img src="https://raw.githubusercontent.com/ofelipechan/angular-calendar/master/preview.png" width="650">
 </p>
+
+[Click here to see the demo](https://angular-calendar.vercel.app/)
 
 
 ## Requirements to start project
