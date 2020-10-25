@@ -17,7 +17,7 @@ export class NewReminderComponent implements OnInit {
 
   editMode = true;
   cityAutoComplete = [];
-  forecast = null;
+  weatherForecast = null;
   reminderForm: FormGroup;
   submit = false;
 
@@ -33,9 +33,11 @@ export class NewReminderComponent implements OnInit {
   }
 
   buildForm() {
+    const date = moment(this.selectedReminder.date).format('YYYY-MM-DD');
+
     this.reminderForm = new FormGroup({
       title: new FormControl(this.selectedReminder.title, [Validators.required, Validators.maxLength(30)]),
-      date: new FormControl(moment(this.selectedReminder.date).format('YYYY-MM-DD'), Validators.required),
+      date: new FormControl(date, Validators.required),
       time: new FormControl(moment(this.selectedReminder.date).format('HH:mm'), Validators.required),
       city: new FormControl(this.selectedReminder.city),
       description: new FormControl(this.selectedReminder.description),
@@ -46,9 +48,13 @@ export class NewReminderComponent implements OnInit {
       this.editMode = false;
       this.reminderForm.disable();
     }
+    if (this.selectedReminder.city && moment(this.selectedReminder.date).isSameOrAfter(new Date())) {
+      this.getWeatherForecast(this.selectedReminder.city, date);
+    }
   }
 
   enableFormEdit() {
+    this.editMode = !this.editMode;
     this.reminderForm.enable();
   }
 
@@ -79,6 +85,7 @@ export class NewReminderComponent implements OnInit {
   }
 
   async onCityFieldType(city: string) {
+    this.weatherForecast = null;
     if (city.length > 2) {
       const response = await this.weatherService.autoComplete(city);
       this.cityAutoComplete = response.splice(0, 4);
@@ -96,15 +103,14 @@ export class NewReminderComponent implements OnInit {
     const date = new Date(`${formDate} ${formTime}`);
     if (moment(date).isSameOrAfter(new Date())) {
       const formattedDate = moment(date).format('YYYY-MM-DD');
-      this.getForecast(location, formattedDate);
+      this.getWeatherForecast(location, formattedDate);
     }
   }
 
-  async getForecast(city: string, date: string) {
+  async getWeatherForecast(city: string, date: string) {
     try {
       const respone: any = await this.weatherService.getWeatherForecast(city, date);
-      this.forecast = respone;
-      console.log(this.forecast);
+      this.weatherForecast = respone;
     } catch (error) {
       throw error;
     }
