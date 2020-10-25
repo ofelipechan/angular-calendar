@@ -1,8 +1,10 @@
+@import 'src/assets/styles/colors';
+
 footer {
     bottom: 0;
     position: absolute;
     width: 100%;
-    background-color: #5382ec;
+    background-color: $color-info;
     padding: 6px;
 }
 
