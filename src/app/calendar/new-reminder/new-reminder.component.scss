@@ -1,4 +1,4 @@
-$color-danger: #af0000;
+@import 'src/assets/styles/colors';
 
 .reminder-container {
   position: fixed;
@@ -39,13 +39,12 @@ $color-danger: #af0000;
 
 .btn-edit {
   padding: 0 5px;
-  background-color: white;
+  margin-right: 10px;
 }
 
 .btn-close {
   float: right;
   padding: 0 5px;
-  background-color: white;
   border-radius: 50%;
 }
 
@@ -70,4 +69,22 @@ $color-danger: #af0000;
 
 .btn-submit {
   margin-left: auto;
+}
+
+.field-date-time {
+  width: 165px;
+}
+
+.support-not-all-browsers {
+  display: block;
+  @media not all and (min-resolution:.001dpcm) {
+    display: none;
+  }
+}
+
+.support-all-browsers {
+  display: none;
+  @media not all and (min-resolution:.001dpcm) {
+    display: block;
+  }
 }

@@ -4,7 +4,9 @@ import { CalendarComponent } from './calendar.component';
 import { NewReminderComponent } from './new-reminder/new-reminder.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 
+ 
 @NgModule({
   declarations: [
     CalendarComponent,
@@ -15,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxMaskModule.forRoot()
   ],
   exports: [
     CalendarComponent

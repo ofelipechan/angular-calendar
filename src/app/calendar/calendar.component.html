@@ -1,17 +1,18 @@
 <div class="container-calendar">
 
-  <app-new-reminder 
-    *ngIf="reminderModalVisible"
-    [selectedReminder]="selectedReminder"
-    (changeVisibility)="onChangeReminderVisibility($event)"
-    (submitReminder)="onReminderModalSubmit($event)"
-    (deleteReminder)="onReminderDelete($event)"
-    ></app-new-reminder>
+  <app-new-reminder *ngIf="reminderModalVisible" [selectedReminder]="selectedReminder"
+    (changeVisibility)="onChangeReminderVisibility($event)" (submitReminder)="onReminderModalSubmit($event)"
+    (deleteReminder)="onReminderDelete($event)"></app-new-reminder>
 
-  <div class="title-month">
-    <button (click)="showOtherMonth('previous')">Previous</button>
-    <h2>{{ calendarView | date: 'MMMM y' }}</h2>
-    <button (click)="showOtherMonth('next')">Next</button>
+  <div class="calendar-header">
+    <div class="title-month">
+      <button class="btn btn-secondary" (click)="showOtherMonth('previous')">Previous</button>
+      <h2>{{ calendarView | date: 'MMMM y' }}</h2>
+      <button class="btn btn-secondary" (click)="showOtherMonth('next')">Next</button>
+    </div>
+    <div class="options">
+      <button class="btn btn-primary" (click)="openModalNewReminder()">Add reminder</button>
+    </div>
   </div>
 
   <table>
@@ -50,7 +51,8 @@
   </table>
 
   <div class="container-grid">
-    <div class="grid-row" *ngFor="let day of month" [class.weekend]="isWeekend(day.date)" (click)="openModalNewReminder(day)">
+    <div class="grid-row" *ngFor="let day of month" [class.weekend]="isWeekend(day.date)"
+      (click)="openModalNewReminder(day)">
       <p class="day" [class.today-calendar-mark]="day.currentDay"
         [class.other-month-day]="isDayFromOtherMonth(day.date)">
         {{ day.date | date: 'd' }}
@@ -63,8 +65,6 @@
     </div>
   </div>
 
-  <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>  
-
-  <button (click)="openModalNewReminder()">Add reminder</button>
+  <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
 
 </div>

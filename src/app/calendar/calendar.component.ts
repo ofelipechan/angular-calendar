@@ -60,6 +60,7 @@ export class CalendarComponent implements OnInit {
   }
 
   showOtherMonth(type: 'previous' | 'next') {
+    this.successMessage = '';
     const firstDay = moment(this.calendarView).startOf('month').toDate();
     this.calendarView = moment(firstDay).add(1, 'month').toDate();
     if (type === 'previous') {

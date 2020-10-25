@@ -6,33 +6,42 @@
     <div class="field" *ngIf="editMode">
       <p class="red-text">* Required fields</p>
     </div>
-    <form [formGroup]="reminderForm">
+    <form class="form-group" autocomplete="off" [formGroup]="reminderForm">
+      <input autocomplete="off" name="hidden" type="text" style="display:none;">
+
       <div class="field">
         <p>Title<span class="red-text" *ngIf="editMode">*</span></p>
-        <input type="text" id="title" formControlName="title" placeholder="Add a title to the reminder">
+        <input type="text" class="input-field" [class.input-error]="fieldHasError('title')" id="title"
+          formControlName="title" placeholder="Add a title to the reminder">
         <p class="red-text" *ngIf="fieldHasError('title')">Insert a title</p>
       </div>
 
       <div class="field">
-        <p>Date<span class="red-text" *ngIf="editMode">*</span></p>
-        <input id="date" id="date" formControlName="date" type="date">
+        <p>Date<span class="red-text" *ngIf="editMode">*</span><small class="support-all-browsers">(YYYY/MM/DD)</small></p>
+        <input type="date" id="date" class="input-field field-date-time support-not-all-browsers" [class.input-error]="fieldHasError('date')" formControlName="date">
+        <input type="text" id="date" class="input-field field-date-time support-all-browsers" mask="0000-00-00" [class.input-error]="fieldHasError('date')"
+        formControlName="date" placeholder="YYYY/MM/DD">
         <p class="red-text" *ngIf="fieldHasError('date')">Insert a date</p>
       </div>
 
       <div class="field">
         <p>Time<span class="red-text" *ngIf="editMode">*</span></p>
-        <input type="time" id="reminder-time" formControlName="time">
+        <input type="time" id="reminder-time" class="input-field field-date-time support-not-all-browsers" [class.input-error]="fieldHasError('time')"
+          formControlName="time">
+        <input type="text" id="reminder-time" class="input-field field-date-time support-all-browsers" [class.input-error]="fieldHasError('time')"
+          mask="00:00" formControlName="time">
         <p class="red-text" *ngIf="fieldHasError('time')">Insert a time</p>
       </div>
 
       <div class="field">
         <p>Description</p>
-        <input type="text" id="description" placeholder="Add location" maxlength="30" formControlName="description">
+        <input type="text" id="description" class="input-field" placeholder="Add location" maxlength="30"
+          formControlName="description">
       </div>
 
       <div class="field">
         <p>Color</p>
-        <select id="color" formControlName="color">
+        <select id="color" class="input-field" formControlName="color">
           <option value="default">Blue</option>
           <option value="green">Green</option>
           <option value="yellow">Yellow</option>
@@ -42,8 +51,8 @@
 
       <div class="field">
         <p>City</p>
-        <input type="text" id="city" placeholder="Add location" (input)="onCityFieldType($event.target.value)"
-          formControlName="city">
+        <input type="text" id="city" class="input-field" placeholder="Add location"
+          (input)="onCityFieldType($event.target.value)" formControlName="city">
         <div class="autocomplete-option" *ngFor="let city of cityAutoComplete"
           (click)="onClickAutoCompleteCity(city.name)">
           {{ city.name }}
@@ -59,9 +68,11 @@
 
       <div class="field footer">
         <br>
-        <button class="btn-edit" id="btn-edit" (click)="enableFormEdit()" *ngIf="!editMode">Edit</button>
-        <button class="btn-delete" id="btn-delete" (click)="onDelete()" *ngIf="!editMode && selectedReminder.id">Delete</button>
-        <button class="btn-submit" id="btn-submit" (click)="onSubmit()" *ngIf="editMode">Save</button>
+        <button class="btn btn-primary btn-edit" id="btn-edit" (click)="enableFormEdit()"
+          *ngIf="!editMode">Edit</button>
+        <button class="btn btn-danger btn-delete" id="btn-delete" (click)="onDelete()"
+          *ngIf="!editMode && selectedReminder.id">Delete</button>
+        <button class="btn btn-success btn-submit" id="btn-submit" (click)="onSubmit()" *ngIf="editMode">Save</button>
       </div>
 
     </form>
