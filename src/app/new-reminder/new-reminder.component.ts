@@ -48,7 +48,7 @@ export class NewReminderComponent implements OnInit {
       this.editMode = false;
       this.reminderForm.disable();
     }
-    if (this.selectedReminder.city && moment(this.selectedReminder.date).isSameOrAfter(new Date())) {
+    if (this.selectedReminder.city) {
       this.getWeatherForecast(this.selectedReminder.city, date);
     }
   }
@@ -101,13 +101,15 @@ export class NewReminderComponent implements OnInit {
     const formDate = this.reminderForm.get('date').value;
     const formTime = this.reminderForm.get('time').value;
     const date = new Date(`${formDate} ${formTime}`);
-    if (moment(date).isSameOrAfter(new Date())) {
-      const formattedDate = moment(date).format('YYYY-MM-DD');
-      this.getWeatherForecast(location, formattedDate);
-    }
+    const formattedDate = moment(date).format('YYYY-MM-DD');
+    this.getWeatherForecast(location, formattedDate);
   }
 
   async getWeatherForecast(city: string, date: string) {
+    const differenceDays = moment(date).diff(new Date(), 'days');
+    if (differenceDays > 15 || differenceDays < 0) {
+      return;
+    }
     try {
       const respone: any = await this.weatherService.getWeatherForecast(city, date);
       this.weatherForecast = respone;
