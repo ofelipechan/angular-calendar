@@ -1,6 +1,16 @@
 # Calendar
 
 A simple project of a calendar which you can create reminders.
+[Demo];
+
+<p align="center">
+    <b>Preview</b>
+</p>
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/ofelipechan/angular-calendar/master/preview.png" width="650">
+</p>
+
 
 ## Requirements to start project
 
