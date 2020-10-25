@@ -25,16 +25,13 @@ describe('NewReminderComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should create', () => {
+    it('should create the NewReminderComponent', () => {
         expect(component).toBeTruthy();
     });
 
     it('should write a 30 character reminder and submit successfuly', () => {
-        const title: HTMLInputElement = fixture.debugElement.query(By.css('#title')).nativeElement;
-        title.value = '123456789012345678901234567890'; // 30 characters
-        title.dispatchEvent(new Event('input'));
-        const titleForm = component.reminderForm.get('title').value;
-        expect(titleForm).toBe(title.value);
+        const str30 = '123456789012345678901234567890'; // 30 characters
+        component.reminderForm.get('title').setValue(str30);
         expect(component.reminderForm.valid).toBeTruthy();
 
         spyOn(component.submitReminder, 'emit');
@@ -46,11 +43,8 @@ describe('NewReminderComponent', () => {
     });
 
     it('should not allow submitting reminder with more than 30 chars', () => {
-        const title: HTMLInputElement = fixture.debugElement.query(By.css('#title')).nativeElement;
-        title.value = '1234567890123456789012345678901'; // 31 characters
-        title.dispatchEvent(new Event('input'));
-        const titleForm = component.reminderForm.get('title').value;
-        expect(titleForm).toBe(title.value);
+        const str31 = '1234567890123456789012345678901'; // 31 characters
+        component.reminderForm.get('title').setValue(str31);
         expect(component.reminderForm.valid).toBeFalsy();
 
         spyOn(component.submitReminder, 'emit');
