@@ -1,9 +1,9 @@
-import { WeatherService } from './../services/weather.service';
-import { Reminder } from './../models/reminder';
 import { EventEmitter, HostListener } from '@angular/core';
 import { Component, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { Reminder } from 'src/app/models/reminder';
+import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-new-reminder',
