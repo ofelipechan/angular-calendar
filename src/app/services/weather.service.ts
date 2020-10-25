@@ -32,7 +32,7 @@ export class WeatherService {
       .set('key', this.key);
     try {
       const response: any = await this.http.get(`${this.apiUrl}/forecast.json`, { params }).toPromise();
-      if(response.forecast.forecastday.length > 0) {
+      if (response.forecast.forecastday.length > 0) {
         return response.forecast.forecastday[0].day;
       }
       return response.forecast;

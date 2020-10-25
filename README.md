@@ -1,27 +1,49 @@
-# FrontEndChallenge
+# Calendar
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.0.
+A simple project of a calendar which you can create reminders.
 
-## Development server
+## Requirements to start project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* [Nodejs](https://nodejs.org/)
+* [AngularCLI](https://cli.angular.io/) 
 
-## Code scaffolding
+### Install dependencies
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```bash
+$ npm install
+```
 
-## Build
+### Start development server 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```bash
+$ npm start
+```
+Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
-## Running unit tests
+### Build
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+$ npm run build
+```
 
-## Running end-to-end tests
+The build artifacts will be stored in the dist/ directory. Use the --prod flag for a production build.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Unit Test
 
-## Further help
+Unit Test
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```bash
+$ npm run test
+```
+
+### Lint
+
+```bash
+$ npm run lint
+```
+
+### Author
+
+| [![github/ofelipechan](https://avatars0.githubusercontent.com/u/26874734?v=3&s=115)](https://github.com/ofelipechan "Checkout github") |
+|---|
+| [Felipe S. Chan](https://github.com/ofelipechan) |
