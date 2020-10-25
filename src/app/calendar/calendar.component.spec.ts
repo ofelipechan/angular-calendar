@@ -18,7 +18,7 @@ describe('CalendarComponent', () => {
                 FormsModule,
                 ReactiveFormsModule,
                 HttpClientModule,
-              ],
+            ],
         })
             .compileComponents();
     }));
@@ -31,5 +31,20 @@ describe('CalendarComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should have built the calendar array of days on init', () => {
+        expect(component.month.length).toBeGreaterThan(0);
+    });
+
+    it('should change visibility of modal of new reminder', () => {
+        const compiled = fixture.debugElement.nativeElement;
+        let newReminderComponent = compiled.querySelector('app-new-reminder');
+        expect(newReminderComponent).toBeNull();
+        component.openModalNewReminder();
+        fixture.detectChanges();
+        newReminderComponent = compiled.querySelector('app-new-reminder');
+        expect(component.reminderModalVisible).toBeTruthy();
+        expect(newReminderComponent).toBeDefined();
     });
 });

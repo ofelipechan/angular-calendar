@@ -32,6 +32,8 @@ describe('NewReminderComponent', () => {
     it('should write a 30 character reminder and submit successfuly', () => {
         const str30 = '123456789012345678901234567890'; // 30 characters
         component.reminderForm.get('title').setValue(str30);
+        component.reminderForm.get('date').setValue('2020-10-25');
+        component.reminderForm.get('time').setValue('11:30');
         expect(component.reminderForm.valid).toBeTruthy();
 
         spyOn(component.submitReminder, 'emit');
@@ -45,6 +47,8 @@ describe('NewReminderComponent', () => {
     it('should not allow submitting reminder with more than 30 chars', () => {
         const str31 = '1234567890123456789012345678901'; // 31 characters
         component.reminderForm.get('title').setValue(str31);
+        component.reminderForm.get('date').setValue('2020-10-25');
+        component.reminderForm.get('time').setValue('11:30');
         expect(component.reminderForm.valid).toBeFalsy();
 
         spyOn(component.submitReminder, 'emit');
