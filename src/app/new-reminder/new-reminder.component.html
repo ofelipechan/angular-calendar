@@ -1,7 +1,6 @@
 <div class="reminder-container" (click)="exit()">
   <div class="reminder-box" (click)="$event.stopPropagation();">
     <div class="reminder-header">
-      <button class="btn-edit" (click)="enableFormEdit()" *ngIf="!editMode">Edit</button>
       <button class="btn-close" (click)="exit()">X</button>
     </div>
     <div class="field" *ngIf="editMode">
@@ -43,8 +42,10 @@
 
       <div class="field">
         <p>City</p>
-        <input type="text" placeholder="Add location" (input)="onCityFieldType($event.target.value)" formControlName="city">
-        <div class="autocomplete-option" *ngFor="let city of cityAutoComplete" (click)="onClickAutoCompleteCity(city.name)">
+        <input type="text" placeholder="Add location" (input)="onCityFieldType($event.target.value)"
+          formControlName="city">
+        <div class="autocomplete-option" *ngFor="let city of cityAutoComplete"
+          (click)="onClickAutoCompleteCity(city.name)">
           {{ city.name }}
         </div>
       </div>
@@ -56,9 +57,11 @@
         <p><b>Chance of rain:</b> {{ weatherForecast.daily_chance_of_rain }}%</p>
       </div>
 
-      <div class="field" *ngIf="editMode">
+      <div class="field footer">
         <br>
-        <input type="submit" value="Save">
+        <button class="btn-edit" (click)="enableFormEdit()" *ngIf="!editMode">Edit</button>
+        <button class="btn-edit" *ngIf="!editMode && selectedReminder.id">Delete</button>
+        <input type="submit" value="Save" class="btn-submit" *ngIf="editMode">
       </div>
 
     </form>

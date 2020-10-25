@@ -23,6 +23,10 @@ $color-danger: #af0000;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-height: 570px) {
+    top: 55%;
+  }
 }
 
 .reminder-header {
@@ -56,4 +60,13 @@ $color-danger: #af0000;
   border: solid 1px #9a9a9c;
   padding: 5px;
   cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  margin-top: 10px;
+}
+
+.btn-submit{
+  margin-left: auto;
 }

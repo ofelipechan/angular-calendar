@@ -11,6 +11,14 @@ $color-current-day: #00b105;
   padding: 5vw;
   max-width: 1060px;
   margin: auto;
+
+  @media (max-width: 680px) {
+    padding: 10px;
+  }
+
+  @media (max-width: 400px) {
+    padding: 5px;
+  }
 }
 
 .title-month {
@@ -28,6 +36,20 @@ table {
 thead tr {
   background-color: $color-blue;
   color: white;
+}
+
+.weekday-full {
+  display: block;
+  @media (max-width: 580px) {
+    display: none;
+  }
+}
+
+.weekday-abbreviation {
+  display: none;
+  @media (max-width: 580px) {
+    display: block;
+  }
 }
 
 .day {
@@ -94,9 +116,11 @@ thead tr {
   &.green {
     background-color: $color-green;
   }
+
   &.red {
     background-color: $color-red;
   }
+
   &.yellow {
     background-color: $color-yellow;
   }
