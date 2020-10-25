@@ -4,8 +4,7 @@ A simple project of a calendar which you can create reminders.
 
 ## Requirements to start project
 
-* [Nodejs](https://nodejs.org/)
-* [AngularCLI](https://cli.angular.io/) 
+* [AngularCLI](https://cli.angular.io/)  - v8.0.0
 
 ### Install dependencies
 
