@@ -51,3 +51,9 @@ $color-danger: #af0000;
 .red-text {
   color: $color-danger;
 }
+
+.autocomplete-option {
+  border: solid 1px #9a9a9c;
+  padding: 5px;
+  cursor: pointer;
+}

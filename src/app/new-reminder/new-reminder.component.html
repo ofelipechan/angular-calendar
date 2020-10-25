@@ -4,6 +4,9 @@
       <button class="btn-edit" (click)="enableFormEdit()" *ngIf="!editMode">Edit</button>
       <button class="btn-close" (click)="exit()">X</button>
     </div>
+    <div class="field" *ngIf="editMode">
+      <p class="red-text">* Required fields</p>
+    </div>
     <form [formGroup]="reminderForm" (ngSubmit)="onSubmit()">
       <div class="field">
         <p>Title*</p>
@@ -24,11 +27,6 @@
       </div>
 
       <div class="field">
-        <p>City</p>
-        <input type="text" placeholder="Add location" maxlength="30" formControlName="city">
-      </div>
-
-      <div class="field">
         <p>Description</p>
         <input type="textarea" placeholder="Add location" maxlength="30" formControlName="description">
       </div>
@@ -43,11 +41,26 @@
         </select>
       </div>
 
+      <div class="field">
+        <p>City</p>
+        <input type="text" placeholder="Add location" maxlength="30" (input)="onCityFieldType($event.target.value)" formControlName="city">
+        <div class="autocomplete-option" *ngFor="let city of cityAutoComplete" (click)="onClickAutoCompleteCity(city.name)">
+          {{ city.name }}
+        </div>
+      </div>
+
+      <div class="forecast" *ngIf="forecast">
+        <img src="{{ forecast.condition.icon }}" alt="icon weather">
+        <p><b>Condition:</b> {{ forecast.condition.text }}</p>
+        <p><b>Average temperature:</b> {{ forecast.avgtemp_c }}ºC</p>
+        <p><b>Chance of rain:</b> {{ forecast.daily_chance_of_rain }}%</p>
+      </div>
+
       <div class="field" *ngIf="editMode">
-        <p class="red-text">* Required fields</p>
         <br>
         <input type="submit" value="Save">
       </div>
+
     </form>
   </div>
 </div>
