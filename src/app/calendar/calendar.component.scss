@@ -5,7 +5,7 @@ $color-yellow: #eaec67;
 
 $color-light-grey: #efefef;
 $color-grey: #a5a5a5;
-$color-current-day: #00b105;
+$color-current-day: #48bd81;
 
 .container-calendar {
   padding: 5vw;
@@ -40,6 +40,7 @@ thead tr {
 
 .weekday-full {
   display: block;
+
   @media (max-width: 580px) {
     display: none;
   }
@@ -47,6 +48,7 @@ thead tr {
 
 .weekday-abbreviation {
   display: none;
+
   @media (max-width: 580px) {
     display: block;
   }
@@ -134,4 +136,13 @@ thead tr {
 
 .reminder-block {
   margin-top: 25px;
+}
+
+.success-message {
+  padding: 15px;
+  margin: 10px 0;
+  background-color: $color-green;
+  border: 2px solid $color-current-day;
+  font-weight: bold;
+  border-radius: 10px;
 }

@@ -6,7 +6,7 @@
     <div class="field" *ngIf="editMode">
       <p class="red-text">* Required fields</p>
     </div>
-    <form [formGroup]="reminderForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="reminderForm">
       <div class="field">
         <p>Title<span class="red-text" *ngIf="editMode">*</span></p>
         <input type="text" id="title" formControlName="title" placeholder="Add a title to the reminder">
@@ -60,8 +60,8 @@
       <div class="field footer">
         <br>
         <button class="btn-edit" id="btn-edit" (click)="enableFormEdit()" *ngIf="!editMode">Edit</button>
-        <button class="btn-delete" id="btn-delete" *ngIf="!editMode && selectedReminder.id">Delete</button>
-        <input type="submit" id="btn-submit" value="Save" class="btn-submit" *ngIf="editMode">
+        <button class="btn-delete" id="btn-delete" (click)="onDelete()" *ngIf="!editMode && selectedReminder.id">Delete</button>
+        <button class="btn-submit" id="btn-submit" (click)="onSubmit()" *ngIf="editMode">Save</button>
       </div>
 
     </form>

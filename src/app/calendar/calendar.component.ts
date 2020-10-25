@@ -15,9 +15,7 @@ export class CalendarComponent implements OnInit {
   today = new Date(2020, 9, 31);
   reminders: Reminder[] = [];
   reminderModalVisible = false;
-
-  constructor() {
-  }
+  successMessage = '';
 
   ngOnInit() {
     const reminders = localStorage.getItem('reminders');
@@ -71,11 +69,13 @@ export class CalendarComponent implements OnInit {
   }
 
   openModalNewReminder(day: Day = new Day()) {
+    this.successMessage = '';
     this.selectedReminder = new Reminder(day.date);
     this.reminderModalVisible = true;
   }
 
   openModalReminderDetails(reminder: Reminder) {
+    this.successMessage = '';
     this.selectedReminder = reminder;
     this.reminderModalVisible = true;
   }
@@ -90,6 +90,7 @@ export class CalendarComponent implements OnInit {
     localStorage.setItem('reminders', JSON.stringify(this.reminders));
     const dayIndex = this.month.findIndex((day: Day) => this.compareDates(day.date, reminder.date));
     this.month[dayIndex].reminders = this.updatedRemindersList(reminder, this.month[dayIndex].reminders);
+    this.successMessage = `Reminder ${this.selectedReminder.id ? 'updated' : 'added'} successfully.`;
   }
 
   updatedRemindersList(reminder: Reminder, reminders: Reminder[]): Reminder[] {
@@ -99,6 +100,7 @@ export class CalendarComponent implements OnInit {
       return reminders;
     }
 
+    indexToUpdate = 0;
     reminders.forEach((rem, index) => {
       if (moment(reminder.date).isSameOrAfter(rem.date)) {
         indexToUpdate = index + 1;
@@ -110,6 +112,21 @@ export class CalendarComponent implements OnInit {
 
   onChangeReminderVisibility(newValue) {
     this.reminderModalVisible = newValue;
+  }
+
+  onReminderDelete(reminder: Reminder) {
+    this.reminderModalVisible = false;
+    const indexToDelete = this.reminders.findIndex((rem) => rem.id === reminder.id);
+    if (indexToDelete >= 0) {
+      this.reminders.splice(indexToDelete, 1);
+      localStorage.setItem('reminders', JSON.stringify(this.reminders));
+    }
+    const dayIndex = this.month.findIndex((day: Day) => this.compareDates(day.date, reminder.date));
+    const dayReminderIndex = this.month[dayIndex].reminders.findIndex((rem) => rem.id === reminder.id);
+    if (indexToDelete >= 0) {
+      this.month[dayIndex].reminders.splice(dayReminderIndex, 1);
+    }
+    this.successMessage = 'Reminder deleted successfully.';
   }
 
   isWeekend(value) {

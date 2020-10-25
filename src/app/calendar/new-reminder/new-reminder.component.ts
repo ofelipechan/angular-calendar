@@ -14,6 +14,7 @@ export class NewReminderComponent implements OnInit {
   @Input() selectedReminder: Reminder = new Reminder();
   @Output() submitReminder: EventEmitter<Reminder> = new EventEmitter();
   @Output() changeVisibility: EventEmitter<boolean> = new EventEmitter();
+  @Output() deleteReminder: EventEmitter<Reminder> = new EventEmitter();
 
   editMode = true;
   cityAutoComplete = [];
@@ -115,6 +116,12 @@ export class NewReminderComponent implements OnInit {
       this.weatherForecast = respone;
     } catch (error) {
       throw error;
+    }
+  }
+
+  onDelete() {
+    if (confirm('Are you sure you wish to delete this reminder?')) {
+      this.deleteReminder.emit(this.selectedReminder);
     }
   }
 

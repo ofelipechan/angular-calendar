@@ -5,6 +5,7 @@
     [selectedReminder]="selectedReminder"
     (changeVisibility)="onChangeReminderVisibility($event)"
     (submitReminder)="onReminderModalSubmit($event)"
+    (deleteReminder)="onReminderDelete($event)"
     ></app-new-reminder>
 
   <div class="title-month">
@@ -61,6 +62,8 @@
       </div>
     </div>
   </div>
+
+  <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>  
 
   <button (click)="openModalNewReminder()">Add reminder</button>
 
