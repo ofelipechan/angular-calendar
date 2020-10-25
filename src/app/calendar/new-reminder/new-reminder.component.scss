@@ -75,16 +75,19 @@
   width: 165px;
 }
 
-.support-not-all-browsers {
-  display: block;
-  @media not all and (min-resolution:.001dpcm) {
-    display: none;
-  }
-}
-
-.support-all-browsers {
-  display: none;
-  @media not all and (min-resolution:.001dpcm) {
+@media (min-width: 580px) {
+  .support-not-all-browsers {
     display: block;
+    @media not all and (min-resolution:.001dpcm) {
+      display: none;
+    }
   }
+  
+  .support-all-browsers {
+    display: none;
+    @media not all and (min-resolution:.001dpcm){
+      display: block;
+    }
+  }
+
 }
