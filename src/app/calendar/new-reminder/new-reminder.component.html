@@ -12,7 +12,7 @@
       <div class="field">
         <p>Title<span class="red-text" *ngIf="editMode">*</span></p>
         <input type="text" class="input-field" [class.input-error]="fieldHasError('title')" id="title"
-          formControlName="title" placeholder="Add a title to the reminder">
+          formControlName="title" maxlength="30" placeholder="Add a title to the reminder">
         <p class="red-text" *ngIf="fieldHasError('title')">Insert a title</p>
       </div>
 
