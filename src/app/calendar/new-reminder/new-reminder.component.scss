@@ -25,8 +25,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
-  @media (max-height: 570px) {
-    top: 55%;
+  @media (max-height: 730px) {
+    top: 64%;
   }
 }
 
@@ -75,19 +75,23 @@
   width: 165px;
 }
 
-@media (min-width: 580px) {
-  .support-not-all-browsers {
-    display: block;
+
+.support-not-all-browsers {
+  display: block;
+
+  @media (min-width: 768px) {
     @media not all and (min-resolution:.001dpcm) {
       display: none;
     }
   }
-  
-  .support-all-browsers {
-    display: none;
-    @media not all and (min-resolution:.001dpcm){
+}
+
+.support-all-browsers {
+  display: none;
+
+  @media (min-width: 768px) {
+    @media not all and (min-resolution:.001dpcm) {
       display: block;
     }
   }
-
 }
