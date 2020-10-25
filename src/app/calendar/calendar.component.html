@@ -6,9 +6,11 @@
 
   <div class="calendar-header">
     <div class="title-month">
-      <button class="btn btn-secondary" (click)="showOtherMonth('previous')">Previous</button>
+      <button class="btn btn-secondary previous btn-mobile-change-month " (click)="showOtherMonth('previous')"> « </button>
+      <button class="btn btn-secondary previous" (click)="showOtherMonth('previous')">Previous</button>
       <h2>{{ calendarView | date: 'MMMM y' }}</h2>
-      <button class="btn btn-secondary" (click)="showOtherMonth('next')">Next</button>
+      <button class="btn btn-secondary next" (click)="showOtherMonth('next')">Next</button>
+      <button class="btn btn-secondary next btn-mobile-change-month " (click)="showOtherMonth('next')">»</button>
     </div>
     <div class="options">
       <button class="btn btn-primary" (click)="openModalNewReminder()">Add reminder</button>

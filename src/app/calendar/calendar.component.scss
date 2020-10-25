@@ -24,6 +24,10 @@ $color-current-day: #48bd81;
   .options {
     display: table;
     margin-left: auto;
+
+    @media (max-width: 580px) {
+      display: none;
+    }
   }
 }
 
@@ -31,14 +35,39 @@ $color-current-day: #48bd81;
   display: flex;
   position: absolute;
 
-  h2 {
-    min-width: 200px;
-    text-align: center;
-    padding: 3px 8px;
+  @media (max-width: 580px) {
+    position: inherit;
+    justify-content: center;
   }
 
-  button {
+  .next,
+  .previous {
     padding: 3px 8px;
+    display: none;
+
+    @media(min-width: 580px) {
+      display: block;
+    }
+  }
+
+  .next.btn-mobile-change-month,
+  .previous.btn-mobile-change-month {
+    display: block;
+    min-width: 35px;
+
+    @media(min-width: 580px) {
+      display: none;
+    }
+  }
+}
+
+h2 {
+  min-width: 200px;
+  text-align: center;
+  padding: 8px 8px;
+
+  @media (max-width: 460px) {
+    font-size: 18px;
   }
 }
 

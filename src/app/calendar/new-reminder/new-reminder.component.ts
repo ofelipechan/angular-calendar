@@ -65,10 +65,14 @@ export class NewReminderComponent implements OnInit {
       return;
     }
 
+    debugger;
     const formDate = this.reminderForm.get('date').value;
     const formTime = this.reminderForm.get('time').value;
+    const formattedTime = formTime.includes(':') ? formTime : formTime.slice(0, 2) + ':' + formTime.slice(2, 4);
+    const date = moment(`${formDate} ${formattedTime}`).toDate();
+
     const valuesToSubmit = new Reminder(
-      new Date(`${formDate} ${formTime}`),
+      date,
       this.reminderForm.value.title,
       this.reminderForm.value.description,
       this.reminderForm.value.city,
@@ -101,7 +105,8 @@ export class NewReminderComponent implements OnInit {
 
     const formDate = this.reminderForm.get('date').value;
     const formTime = this.reminderForm.get('time').value;
-    const date = new Date(`${formDate} ${formTime}`);
+
+    const date = moment(`${formDate} ${formTime}`);
     const formattedDate = moment(date).format('YYYY-MM-DD');
     this.getWeatherForecast(location, formattedDate);
   }
