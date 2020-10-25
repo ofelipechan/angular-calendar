@@ -8,19 +8,19 @@
     </div>
     <form [formGroup]="reminderForm" (ngSubmit)="onSubmit()">
       <div class="field">
-        <p>Title*</p>
+        <p>Title<span class="red-text" *ngIf="editMode">*</span></p>
         <input type="text" formControlName="title" placeholder="Add a title to the reminder">
         <p class="red-text" *ngIf="fieldHasError('title')">Insert a title</p>
       </div>
 
       <div class="field">
-        <p>Date*</p>
+        <p>Date<span class="red-text" *ngIf="editMode">*</span></p>
         <input id="date" formControlName="date" type="date">
         <p class="red-text" *ngIf="fieldHasError('date')">Insert a date</p>
       </div>
 
       <div class="field">
-        <p>Time*</p>
+        <p>Time<span class="red-text" *ngIf="editMode">*</span></p>
         <input type="time" id="reminder-time" formControlName="time">
         <p class="red-text" *ngIf="fieldHasError('time')">Insert a time</p>
       </div>
