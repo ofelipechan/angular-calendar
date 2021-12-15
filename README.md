@@ -10,7 +10,7 @@ A simple project of a calendar which you can create reminders.
     <img src="https://raw.githubusercontent.com/ofelipechan/angular-calendar/master/preview.png" width="650">
 </p>
 
-[Click here to see the demo](https://angular-calendar.vercel.app/)
+<a href="https://angular-calendar.vercel.app/" target="_blank">Click here to see the demo</a>
 
 
 ## Requirements to start project
